@@ -157,9 +157,23 @@ public class MovieDAO
      *
      * @param movie The updated movie.
      */
-    private void updateMovie(Movie movie)
+    public void updateMovie(Movie movie) throws IOException
     {
-        //TODO Update movies
+        List<Movie> newMovieList = getAllMovies();
+        for (int i = 0; i < newMovieList.size(); i++)
+        {
+            if (newMovieList.get(i).getId() == movie.getId())
+            {
+                newMovieList.get(i).setTitle(movie.getTitle());
+                newMovieList.get(i).setYear(movie.getYear());
+            }
+        }
+        PrintWriter writer = new PrintWriter("data/temp_movie_titles.txt");
+        for (int i = 0; i < newMovieList.size(); i++)
+        {
+            writer.println(newMovieList.get(i).toFileFormat());
+        }
+
     }
 
     /**
