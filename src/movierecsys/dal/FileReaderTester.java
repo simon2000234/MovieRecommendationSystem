@@ -26,6 +26,8 @@ public class FileReaderTester
     {
         MovieDAO movieDao = new MovieDAO();
         System.out.println(movieDao.getMovie(597));
-        
+        //17772,1966,Django
+        Movie m= new Movie(1772, 1560,"Django_v2");
+       movieDao.updateMovie(m);
     }
 }

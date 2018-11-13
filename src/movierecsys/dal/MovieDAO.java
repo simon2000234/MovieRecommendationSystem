@@ -123,7 +123,7 @@ public class MovieDAO
      */
     public void deleteMovie(Movie movie)
     {
-
+      
     }
 
     /**
@@ -132,9 +132,22 @@ public class MovieDAO
      *
      * @param movie The updated movie.
      */
-    private void updateMovie(Movie movie)
+    public void updateMovie(Movie movie) throws IOException
     {
-        //TODO Update movies
+        
+        for (int i = 0; i < getAllMovies().size(); i++)
+        {
+            if(getAllMovies().get(movie.getId()).getId()== movie.getId()){
+            getAllMovies().get(i).setTitle(movie.getTitle());
+            getAllMovies().get(i).setYear(movie.getYear());
+            }else{
+                System.out.println("der er ske en fejl");
+            }
+            
+        }
+        
+        
+        
     }
 
     /**
