@@ -8,8 +8,10 @@ package movierecsys.dal;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
@@ -121,9 +123,31 @@ public class MovieDAO
      *
      * @param movie The movie to delete.
      */
-    public void deleteMovie(Movie movie)
+    public void deleteMovie(Movie movie) throws FileNotFoundException, IOException
     {
-      
+
+        PrintWriter writer = new PrintWriter("data/temp_movie_titles.txt");
+        BufferedReader reader = new BufferedReader(new FileReader("data/movie_titles.txt"));
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+            if (line.equals(movie.toFileFormat()))
+            {
+            }
+            else
+            {
+                writer.println(line);
+            }
+        }
+        writer.close();
+        reader.close();
+        File oldfile = new File("data/movie_titles.txt");
+	File newfile = new File("data/temp_movie_titles.txt");
+		if(oldfile.renameTo(newfile)){
+			System.out.println("Rename succesful");
+		}else{
+			System.out.println("Rename failed");
+		}
     }
 
     /**

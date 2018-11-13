@@ -1,4 +1,5 @@
 # MovieRecommendationSystem
+<<<<<<< HEAD
 Recommendation System Exercise
 
 Over the course of the next weeks we will be developing a single user movie recommendation system. You will work in groups throughout the project.
@@ -49,3 +50,5 @@ This means that the movie with the ID 8, was rated by the user with the ID 17448
 Users are stored with an ID and a name. 
 
 Over the course of the weeks we will extend the system so that we at the end of the semester have met all the mandatory requirements. 
+=======
+>>>>>>> parent of ce48243... hej med dig jeg hedder kaj
