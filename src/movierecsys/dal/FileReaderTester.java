@@ -6,6 +6,7 @@
 package movierecsys.dal;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import movierecsys.be.Movie;
 
@@ -25,7 +26,8 @@ public class FileReaderTester
     public static void main(String[] args) throws IOException
     {
         MovieDAO movieDao = new MovieDAO();
-        System.out.println(movieDao.getMovie(597));
-        
+        movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
     }
 }
+
+

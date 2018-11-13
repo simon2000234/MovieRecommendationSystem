@@ -54,6 +54,10 @@ public class Movie
         return "Movie{" + "id=" + id + ", title=" + title + ", year=" + year + '}';
     }
     
+    public String toFileFormat()
+    {
+        return id + "," + year + "," + title;
+    }
     
 
 }
