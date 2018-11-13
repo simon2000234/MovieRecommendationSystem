@@ -123,7 +123,7 @@ public class MovieDAO
      */
     private void deleteMovie(Movie movie)
     {
-        //TODO Delete movie
+        
     }
 
     /**
@@ -143,9 +143,9 @@ public class MovieDAO
      * @param id ID of the movie.
      * @return A Movie object.
      */
-    private Movie getMovie(int id)
+    public Movie getMovie(int id) throws IOException
     {
-        //TODO Get one Movie
+       
         return null;
     }
 
