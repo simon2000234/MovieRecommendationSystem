@@ -26,8 +26,8 @@ public class FileReaderTester
     public static void main(String[] args) throws IOException
     {
         MovieDAO movieDao = new MovieDAO();
-        //movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
-        movieDao.updateMovie(new Movie(1, 420, "dab"));
+        movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
+        //movieDao.updateMovie(new Movie(1, 420, "dab"));
     }
 }
 

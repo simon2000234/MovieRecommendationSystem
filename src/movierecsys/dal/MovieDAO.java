@@ -10,17 +10,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 import movierecsys.be.Movie;
 
 /**
@@ -122,6 +122,7 @@ public class MovieDAO
      * Deletes a movie from the persistence storage.
      *
      * @param movie The movie to delete.
+     * @throws java.io.FileNotFoundException
      */
     public void deleteMovie(Movie movie) throws FileNotFoundException, IOException
     {
@@ -140,13 +141,10 @@ public class MovieDAO
         }
         writer.close();
         reader.close();
-        File oldfile = new File("data/movie_titles.txt");
-	File newfile = new File("data/temp_movie_titles.txt");
-		if(oldfile.renameTo(newfile)){
-			System.out.println("Rename succesful");
-		}else{
-			System.out.println("Rename failed");
-		}
+        File oldFile = new File("data/movie_titles.txt");
+	File newFile = new File("data/temp_movie_titles.txt");
+        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(newFile.toPath());
         
         
     }
@@ -156,6 +154,7 @@ public class MovieDAO
      * given Movie object.
      *
      * @param movie The updated movie.
+     * @throws java.io.IOException
      */
     public void updateMovie(Movie movie) throws IOException
     {
@@ -173,7 +172,11 @@ public class MovieDAO
         {
             writer.println(newMovieList.get(i).toFileFormat());
         }
-
+        writer.close();
+        File oldFile = new File("data/movie_titles.txt");
+	File newFile = new File("data/temp_movie_titles.txt");
+        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(newFile.toPath());
     }
 
     /**
@@ -181,6 +184,7 @@ public class MovieDAO
      *
      * @param id ID of the movie.
      * @return A Movie object.
+     * @throws java.io.IOException
      */
     public Movie getMovie(int id) throws IOException
     {
