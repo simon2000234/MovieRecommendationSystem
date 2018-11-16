@@ -26,6 +26,7 @@ public class FileReaderTester
      */
     public static void main(String[] args) throws IOException
     {
+
        // MovieDAO movieDao = new MovieDAO();
 
 
@@ -46,6 +47,14 @@ public class FileReaderTester
            
         }
          System.out.println( users.size());
+
+      User u=   user.getUser(2000);
+        System.out.println( u.getName());
+         
+       // MovieDAO movieDao = new MovieDAO();
+       // movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
+        //movieDao.updateMovie(new Movie(1, 420, "dab"));
+
     }
 }
 

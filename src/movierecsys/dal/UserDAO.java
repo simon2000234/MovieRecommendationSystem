@@ -74,9 +74,17 @@ public class UserDAO
      * @param id The ID of the user.
      * @return The User with the ID.
      */
-    public User getUser(int id)
+    public User getUser(int id) throws IOException
     {
-        //TODO Get User
+        List<User> users = getAllUsers();
+        for (User user : users)
+        {
+            if (user.getId() == id)
+            {
+                return user;
+            }
+        }
+
         return null;
     }
 
