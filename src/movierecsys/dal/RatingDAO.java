@@ -42,7 +42,7 @@ public class RatingDAO
         { 
             writer.println(line);
         }
-        writer.println(rating.getMovie().getId() + "," + rating.getUser().getId() + "," + rating.getRating());
+        writer.println(rating.getMovie() + "," + rating.getUser() + "," + rating.getRating());
         writer.close();
 //        File oldFile = new File("data/ratings.txt");
 //	File newFile = new File("data/temp_ratings.txt");
@@ -64,9 +64,27 @@ public class RatingDAO
      * Removes the given rating.
      * @param rating 
      */
-    public void deleteRating(Rating rating)
+    public void deleteRating(Rating rating) throws IOException
     {
-        //TODO Delete rating
+        PrintWriter writer = new PrintWriter("data/temp_ratings.txt");
+        BufferedReader reader = new BufferedReader(new FileReader("data/ratings.txt"));
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+            if (line.equals(rating.toFileFormat()))
+            {
+            }
+            else
+            {
+                writer.println(line);
+            }
+        }
+        writer.close();
+        reader.close();
+//        File oldFile = new File("data/movie_titles.txt");
+//	File newFile = new File("data/temp_movie_titles.txt");
+//        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//        Files.delete(newFile.toPath());
     }
     
     /**
@@ -102,13 +120,12 @@ public class RatingDAO
     private Rating stringArrayToRating(String line) throws IOException
     {
         String[] arrRating = line.split(",");
-        MovieDAO movieDAO = new MovieDAO();
-        UserDAO userDAO = new UserDAO();
-
-        Movie movie = new Movie(Integer.parseInt(arrRating[0]),movieDAO.getMovie(Integer.parseInt(arrRating[0])).getYear(), movieDAO.getMovie(Integer.parseInt(arrRating[0])).getTitle());
-        User user = new User(Integer.parseInt(arrRating[1]), userDAO.getUser(Integer.parseInt(arrRating[1])).getName());
+        
+        int movieid = Integer.parseInt(arrRating[0]);
+        int userID = Integer.parseInt(arrRating[1]);
         int rating = Integer.parseInt(arrRating[2]);
-        Rating rat = new Rating(movie, user, rating);
+
+        Rating rat = new Rating(movieid, userID, rating);
         return rat;
     }
     
