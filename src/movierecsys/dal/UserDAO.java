@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import movierecsys.be.Movie;
@@ -93,9 +96,33 @@ public class UserDAO
      *
      * @param user The updated user.
      */
-    public void updateUser(User user)
+    public void updateUser(User user) throws IOException
     {
-        //TODO Update user.
+        
+        
+        
+        
+
+        List<User> newUserList = getAllUsers();
+        for (int i = 0; i < newUserList.size(); i++)
+        {
+            if (newUserList.get(i).getId() == user.getId())
+            {
+                newUserList.get(i).setName(user.getName());
+                
+            }
+        }
+        PrintWriter writer = new PrintWriter("data/temp_users.txt");
+        for (int i = 0; i < newUserList.size(); i++)
+        {
+            writer.println(newUserList.get(i).toFileFormat());
+        }
+
+        writer.close();
+        File oldFile = new File("data/users.txt");
+	File newFile = new File("data/temp_users.txt");
+        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(newFile.toPath());
     }
 
 }

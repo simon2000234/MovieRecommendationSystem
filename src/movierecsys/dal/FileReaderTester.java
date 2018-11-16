@@ -27,35 +27,29 @@ public class FileReaderTester
     public static void main(String[] args) throws IOException
     {
 
-       // MovieDAO movieDao = new MovieDAO();
-
-
-      //  System.out.println(movieDao.getMovie(597));
-
-
-      //  movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
-       // movieDao.updateMovie(new Movie(17772,2099,"Django_v2"));
-
+        // MovieDAO movieDao = new MovieDAO();
+        //  System.out.println(movieDao.getMovie(597));
+        //  movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
+        // movieDao.updateMovie(new Movie(17772,2099,"Django_v2"));
         //movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
-       // movieDao.updateMovie(new Movie(1, 420, "dab"));
+        // movieDao.updateMovie(new Movie(1, 420, "dab"));
+        UserDAO user = new UserDAO();
+        List<User> users = user.getAllUsers();
+//        for (User user1 : users)
+//        {
+//            System.out.println(user1);
+//
+//        }
+        System.out.println(users.size());
+
+//        User u = user.getUser(2000);
+//        System.out.println(u.getName());
         
-        UserDAO user =new UserDAO();
-     List<User> users = user.getAllUsers();
-        for (User user1 : users)
-        {
-            System.out.println(user1);
-           
-        }
-         System.out.println( users.size());
-
-      User u=   user.getUser(2000);
-        System.out.println( u.getName());
-         
-       // MovieDAO movieDao = new MovieDAO();
-       // movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
+        
+        user.updateUser(new User(7, "test"));
+        
+        // MovieDAO movieDao = new MovieDAO();
+        // movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
         //movieDao.updateMovie(new Movie(1, 420, "dab"));
-
     }
 }
-
-
