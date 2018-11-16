@@ -28,7 +28,11 @@ public class FileReaderTester
     public static void main(String[] args) throws IOException
     {       
         RatingDAO ratingDAO = new RatingDAO();
-        ratingDAO.createRating(new Rating(new Movie(1, 2003, "Dinosaur Planet"), new User(7, "Georgi Facello"), -3));
+        List<Rating> ratings = ratingDAO.getAllRatings();
+        for (Rating rating : ratings)
+        {
+            System.out.println(rating);
+        }
  
 
     }
