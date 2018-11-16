@@ -62,5 +62,9 @@ public class User
     {
         return "User{" + "id=" + id + ", name=" + name + '}';
     }
+     public String toFileFormat()
+    {
+        return id + "," + name ;
+    }
   
 }
