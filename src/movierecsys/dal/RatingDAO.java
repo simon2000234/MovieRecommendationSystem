@@ -5,7 +5,20 @@
  */
 package movierecsys.dal;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
+import movierecsys.be.Movie;
 import movierecsys.be.Rating;
 import movierecsys.be.User;
 
@@ -20,9 +33,22 @@ public class RatingDAO
      * Persists the given rating.
      * @param rating the rating to persist.
      */
-    public void createRating(Rating rating)
+    public void createRating(Rating rating) throws IOException
     {
-        //TODO Rate movie
+        PrintWriter writer = new PrintWriter("data/temp_ratings.txt");
+        BufferedReader reader = new BufferedReader(new FileReader("data/ratings.txt"));
+        String line;
+        while ((line = reader.readLine()) != null)
+        { 
+            writer.println(line);
+        }
+        writer.println(rating.getMovie().getId() + "," + rating.getUser().getId() + "," + rating.getRating());
+        writer.close();
+//        File oldFile = new File("data/ratings.txt");
+//	File newFile = new File("data/temp_ratings.txt");
+//        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//        Files.delete(newFile.toPath());
+        
     }
     
     /**
@@ -47,10 +73,43 @@ public class RatingDAO
      * Gets all ratings from all users.
      * @return List of all ratings.
      */
-    public List<Rating> getAllRatings()
+    public List<Rating> getAllRatings() throws IOException
     {
-        //TODO Get all rating.
-        return null;
+        List<Rating> allRatings = new ArrayList<>();
+        String source = "data/ratings.txt";
+        File file = new File(source);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) //Using a try with resources!
+        {
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                if (!line.isEmpty())
+                {
+                    try
+                    {
+                        Rating rat = stringArrayToRating(line);
+                        allRatings.add(rat);
+                    } catch (Exception ex)
+                    {
+                        //Do nothing. Optimally we would log the error.
+                    }
+                }
+            }
+        }
+        return allRatings;
+    }
+    private Rating stringArrayToRating(String line) throws IOException
+    {
+        String[] arrRating = line.split(",");
+        MovieDAO movieDAO = new MovieDAO();
+        UserDAO userDAO = new UserDAO();
+
+        Movie movie = new Movie(Integer.parseInt(arrRating[0]),movieDAO.getMovie(Integer.parseInt(arrRating[0])).getYear(), movieDAO.getMovie(Integer.parseInt(arrRating[0])).getTitle());
+        User user = new User(Integer.parseInt(arrRating[1]), userDAO.getUser(Integer.parseInt(arrRating[1])).getName());
+        int rating = Integer.parseInt(arrRating[2]);
+        Rating rat = new Rating(movie, user, rating);
+        return rat;
     }
     
     /**
