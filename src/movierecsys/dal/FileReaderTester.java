@@ -27,8 +27,7 @@ public class FileReaderTester
      */
     public static void main(String[] args) throws IOException
     {       
-        RatingDAO ratingDAO = new RatingDAO();
-        ratingDAO.deleteRating(new Rating(8, 1744889, -5));
+        RatingDAO ratingDAO = new RatingDAO();       
     }
 }
 

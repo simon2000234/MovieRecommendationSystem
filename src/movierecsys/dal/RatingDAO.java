@@ -81,8 +81,8 @@ public class RatingDAO
         }
         writer.close();
         reader.close();
-//        File oldFile = new File("data/movie_titles.txt");
-//	File newFile = new File("data/temp_movie_titles.txt");
+//        File oldFile = new File("data/ratings.txt");
+//	File newFile = new File("data/temp_ratings.txt");
 //        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 //        Files.delete(newFile.toPath());
     }
@@ -134,10 +134,26 @@ public class RatingDAO
      * @param user The user 
      * @return The list of ratings.
      */
-    public List<Rating> getRatings(User user)
+    public List<Rating> getRatings(User user) throws IOException
     {
-        //TODO Get user ratings.
-        return null;
+        ArrayList<Rating> userRatings = new ArrayList<>();
+        List<Rating> allRatings = getAllRatings();
+        
+        for (int i = 0; i < allRatings.size(); i++)
+        {
+            if (allRatings.get(i).getUser() == user.getId())
+            {
+                userRatings.add(allRatings.get(i));
+            }
+        }
+        if (userRatings.isEmpty())
+        {
+            return null;
+        }
+        else 
+        {
+            return userRatings;
+        }
     }
     
 }
