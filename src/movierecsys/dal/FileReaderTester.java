@@ -28,11 +28,7 @@ public class FileReaderTester
     {
 
         // MovieDAO movieDao = new MovieDAO();
-        //  System.out.println(movieDao.getMovie(597));
-        //  movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
-        // movieDao.updateMovie(new Movie(17772,2099,"Django_v2"));
-        //movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
-        // movieDao.updateMovie(new Movie(1, 420, "dab"));
+
         UserDAO user = new UserDAO();
         List<User> users = user.getAllUsers();
 //        for (User user1 : users)
