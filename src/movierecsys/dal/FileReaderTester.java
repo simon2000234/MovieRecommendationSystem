@@ -31,10 +31,10 @@ public class FileReaderTester
 
         UserDAO user = new UserDAO();
         List<Rating> ratings = ratingDAO.getAllRatings();
-        for (Rating rating : ratings)
-        {
-            System.out.println(rating);
-        }
+//        for (Rating rating : ratings)
+//        {
+//            System.out.println(rating);
+//        }
  
 
 
@@ -49,8 +49,8 @@ public class FileReaderTester
 //        }
         System.out.println(users.size());
 
-
-
+        ratingDAO.updateRating(new Rating(8,1744889, 5));
+// 8,1744889,-5
     }
 }
 
