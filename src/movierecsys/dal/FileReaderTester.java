@@ -28,6 +28,7 @@ public class FileReaderTester
     public static void main(String[] args) throws IOException
     {       
         RatingDAO ratingDAO = new RatingDAO();
+        UserDAO user = new UserDAO();
         List<Rating> ratings = ratingDAO.getAllRatings();
         for (Rating rating : ratings)
         {
@@ -38,7 +39,7 @@ public class FileReaderTester
 
         // MovieDAO movieDao = new MovieDAO();
 
-        UserDAO user = new UserDAO();
+        
         List<User> users = user.getAllUsers();
 //        for (User user1 : users)
 //        {
@@ -51,7 +52,7 @@ public class FileReaderTester
 //        System.out.println(u.getName());
         
         
-        user.updateUser(new User(7, "test"));
+       // user.updateUser(new User(7, "test"));
         
         // MovieDAO movieDao = new MovieDAO();
         // movieDao.deleteMovie(new Movie(17771, 1966, "Django"));
