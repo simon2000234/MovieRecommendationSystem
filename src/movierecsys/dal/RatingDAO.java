@@ -55,9 +55,27 @@ public class RatingDAO
      * Updates the rating to reflect the given object.
      * @param rating The updated rating to persist.
      */
-    public void updateRating(Rating rating)
+    public void updateRating(Rating rating) throws IOException
     {
-        //TODO Update rating
+        List<Rating> newRatingList = getAllRatings();
+        for (int i = 0; i < newRatingList.size(); i++)
+        {
+            if (newRatingList.get(i).getUser() == rating.getUser() && newRatingList.get(i).getMovie() == rating.getMovie() )
+            {
+                newRatingList.get(i).setRating(rating.getRating());
+            }
+        }
+        PrintWriter writer = new PrintWriter("data/temp_ratings.txt");
+        for (int i = 0; i < newRatingList.size(); i++)
+        {
+            writer.println(newRatingList.get(i).toFileFormat());
+        }
+
+        writer.close();
+        File oldFile = new File("data/ratings.txt");
+	File newFile = new File("data/temp_ratings.txt");
+        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(newFile.toPath());
     }
     
     /**

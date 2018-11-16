@@ -74,7 +74,10 @@ public class Rating
     public int getRating()
     {
         return rating;
-    }
+
+    }   
+
+    
     
     @Override
     public String toString()
@@ -86,4 +89,5 @@ public class Rating
     {
         return movieID + "," + userID + "," + rating;
     }
+
 }

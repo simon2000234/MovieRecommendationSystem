@@ -27,7 +27,30 @@ public class FileReaderTester
      */
     public static void main(String[] args) throws IOException
     {       
-        RatingDAO ratingDAO = new RatingDAO();       
+        RatingDAO ratingDAO = new RatingDAO();
+
+        UserDAO user = new UserDAO();
+        List<Rating> ratings = ratingDAO.getAllRatings();
+//        for (Rating rating : ratings)
+//        {
+//            System.out.println(rating);
+//        }
+ 
+
+
+        // MovieDAO movieDao = new MovieDAO();
+
+        
+        List<User> users = user.getAllUsers();
+//        for (User user1 : users)
+//        {
+//            System.out.println(user1);
+//
+//        }
+        System.out.println(users.size());
+
+        ratingDAO.updateRating(new Rating(8,1744889, 5));
+// 8,1744889,-5
     }
 }
 
