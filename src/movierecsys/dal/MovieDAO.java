@@ -142,16 +142,6 @@ public class MovieDAO
         }
         writer.close();
         reader.close();
-
-        File oldfile = new File("data/movie_titles.txt");
-	File newfile = new File("data/temp_movie_titles.txt");
-		if(oldfile.renameTo(newfile)){
-			System.out.println("Rename succesful");
-		}else{
-			System.out.println("Rename failed");
-		}
-
-
         File oldFile = new File("data/movie_titles.txt");
 	File newFile = new File("data/temp_movie_titles.txt");
         Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -169,22 +159,6 @@ public class MovieDAO
      */
     public void updateMovie(Movie movie) throws IOException
     {
-
-        
-        for (int i = 0; i < getAllMovies().size(); i++)
-        {
-            if(getAllMovies().get(movie.getId()).getId()== movie.getId()){
-            getAllMovies().get(i).setTitle(movie.getTitle());
-            getAllMovies().get(i).setYear(movie.getYear());
-            }else{
-                System.out.println("der er ske en fejl");
-            }
-            
-        }
-        
-        
-        
-
         List<Movie> newMovieList = getAllMovies();
         for (int i = 0; i < newMovieList.size(); i++)
         {
