@@ -82,4 +82,8 @@ public class Rating
         return "Movie=" + movieID + " user=" + userID + " rating=" + rating;
     }
 
+    public String toFileFormat()
+    {
+        return movieID + "," + userID + "," + rating;
+    }
 }

@@ -64,9 +64,27 @@ public class RatingDAO
      * Removes the given rating.
      * @param rating 
      */
-    public void deleteRating(Rating rating)
+    public void deleteRating(Rating rating) throws IOException
     {
-        //TODO Delete rating
+        PrintWriter writer = new PrintWriter("data/temp_ratings.txt");
+        BufferedReader reader = new BufferedReader(new FileReader("data/ratings.txt"));
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+            if (line.equals(rating.toFileFormat()))
+            {
+            }
+            else
+            {
+                writer.println(line);
+            }
+        }
+        writer.close();
+        reader.close();
+//        File oldFile = new File("data/movie_titles.txt");
+//	File newFile = new File("data/temp_movie_titles.txt");
+//        Files.copy(newFile.toPath(), oldFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//        Files.delete(newFile.toPath());
     }
     
     /**
