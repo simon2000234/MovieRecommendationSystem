@@ -5,6 +5,8 @@
  */
 package movierecsys.be;
 
+import movierecsys.dal.DbConnectionProvider;
+
 /**
  *
  * @author pgn
@@ -28,12 +30,19 @@ public class Rating
      * @param rating The value of the rating. Only the constants of the Rating
      * class are allowed values.
      */
+    
+   // private DbConnectionProvider dbCon ;
     public Rating(int movieID, int userID, int rating)
     {
         this.movieID = movieID;
         this.userID = userID;
         this.rating = rating;
+        // dbCon= new DbConnectionProvider();
     }
+    
+       
+
+   
 
     /**
      * Sets the rating to a new value. Only the constants of the Rating class

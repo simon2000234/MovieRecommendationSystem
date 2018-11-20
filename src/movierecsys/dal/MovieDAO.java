@@ -27,8 +27,13 @@ import movierecsys.be.Movie;
  *
  * @author pgn
  */
-public class MovieDAO
+public class MovieDAO implements IMovieRepository
 {
+
+    
+    
+    
+    
 
     private static final String MOVIE_SOURCE = "data/movie_titles.txt";
 
@@ -38,6 +43,7 @@ public class MovieDAO
      * @return List of movies.
      * @throws java.io.IOException 
      */
+    @Override
     public List<Movie> getAllMovies() throws IOException
     {
         List<Movie> allMovies = new ArrayList<>();
@@ -92,6 +98,7 @@ public class MovieDAO
      * @return The object representation of the movie added to the persistence
      * storage.
      */
+    @Override
     public Movie createMovie(int releaseYear, String title) throws IOException
     {
         Path path = new File(MOVIE_SOURCE).toPath();
@@ -124,6 +131,7 @@ public class MovieDAO
      * @param movie The movie to delete.
      * @throws java.io.FileNotFoundException
      */
+    @Override
     public void deleteMovie(Movie movie) throws FileNotFoundException, IOException
     {
 
@@ -157,6 +165,7 @@ public class MovieDAO
      * @param movie The updated movie.
      * @throws java.io.IOException
      */
+    @Override
     public void updateMovie(Movie movie) throws IOException
     {
         List<Movie> newMovieList = getAllMovies();
@@ -189,6 +198,7 @@ public class MovieDAO
      * @return A Movie object.
      * @throws java.io.IOException
      */
+    @Override
     public Movie getMovie(int id) throws IOException
     {
 
