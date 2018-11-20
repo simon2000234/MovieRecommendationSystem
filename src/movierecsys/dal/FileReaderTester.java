@@ -24,122 +24,126 @@ import movierecsys.be.User;
  */
 public class FileReaderTester
 {
-
+    userDBDAO userdbdao = new userDBDAO();
     /**
      * Example method. This is the code I used to create the users.txt files.
      *
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException
-    {       
-        MovieDbDao mddao = new MovieDbDao();
+
+    public static void main(String[] args) throws IOException, SQLException
+    {
         
     }
-    
-    public static void migrateMovies() throws IOException
+
+    public static void mitigateMovie() throws IOException
     {
+
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setServerName("10.176.111.31");
-        ds.setDatabaseName("movierecsys");
-        ds.setUser("CS2018A_30");
-        ds.setPassword("CS2018A_30");
-        
-        MovieDAO mvDao = new MovieDAO();
-        List<Movie> movies = mvDao.getAllMovies();
-        
-        try(Connection con = ds.getConnection())
+        ds.setDatabaseName("andr_mrs");
+        ds.setUser("CS2018A_3");
+        ds.setPassword("CS2018A_3");
+
+        MovieDAO movieDAO = new MovieDAO();
+        List<Movie> movies = movieDAO.getAllMovies();
+
+        movieDBDAO movieDBDAO = new movieDBDAO();
+
+        try (Connection con = ds.getConnection())
         {
-            
-            Statement statement = con.createStatement();
+            Statement Statement = con.createStatement();
+
             for (Movie movie : movies)
             {
-                String SQL = "INSERT INTO Movie (id, year, title) VALUES(" 
-                    + movie.getId() + "," 
-                    + movie.getYear() + ",'" 
-                    + movie.getTitle().replace("'", "") + "');";
-                System.out.println(SQL);
-                int i = statement.executeUpdate(SQL);
-                // INSERT INTO Movie (id,year,title) VALUES (1,20018,Venom)
-                System.out.println("Affected row = " + i);
+                String sql = "INSERT INTO movie (id,year,title)VALUES ("
+                        + movie.getId() + ","
+                        + movie.getYear() + ",'"
+                        + movie.getTitle().replace("'", "") + "')";
+                System.out.println(sql);
+                int i = Statement.executeUpdate(sql);
+                System.out.println("affected row =" + i);
             }
-        } 
-        catch(SQLException ex)
+
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+
+    }
+    
+    public static void mitigateUser() throws IOException
+    {
+    SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setServerName("10.176.111.31");
+        ds.setDatabaseName("andr_mrs");
+        ds.setUser("CS2018A_3");
+        ds.setPassword("CS2018A_3");
+
+        UserDAO userDAO = new UserDAO();
+        List<User> users = userDAO.getAllUsers();
+
+        userDBDAO userDBDAO = new userDBDAO();
+
+        try (Connection con = ds.getConnection())
+        {
+            Statement Statement = con.createStatement();
+            for (User user : users)
+            {
+                String sql = "INSERT INTO [User] (id,name)VALUES ("
+                        + user.getId() + ",'"
+                        + user.getName() + "');";
+                System.out.println(sql);
+                int i = Statement.executeUpdate(sql);
+                System.out.println("affected row =" + i);
+            }
+
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    
+    }
+    
+    
+     public static void mitigateRatings() throws IOException
+    {
+        List<Rating> allRatings = new RatingDAO().getAllRatings();
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setServerName("10.176.111.31");
+        ds.setDatabaseName("andr_mrs");
+        ds.setUser("CS2018A_3");
+        ds.setPassword("CS2018A_3");
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            int counter = 0;
+            for (Rating rating : allRatings)
+            {
+                String sql = "INSERT INTO Rating (movieID, userID, rating) VALUES ("
+                        + rating.getMovie() + ","
+                        + rating.getUser() + ","
+                        + rating.getRating()
+                        + ");";
+                st.addBatch(sql);
+                counter++;
+                if (counter % 10000 == 0)
+                {
+                    st.executeBatch();
+                    System.out.println("Added "+counter+" ratings.");
+                }
+            }
+            if (counter % 10000 != 0)
+            {
+                st.executeBatch();
+                System.out.println("Added final batch of ratings.");
+            }
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
     }
-        public static void migrateUsers() throws IOException
-            {
-            SQLServerDataSource ds = new SQLServerDataSource();
-            ds.setServerName("10.176.111.31");
-            ds.setDatabaseName("movierecsys");
-            ds.setUser("CS2018A_30");
-            ds.setPassword("CS2018A_30");
-        
-            UserDAO userDAO = new UserDAO();
-            List<User> users = userDAO.getAllUsers();
-        
-            try(Connection con = ds.getConnection())
-            {
-                int counter = 0;
-                Statement statement = con.createStatement();
-                for (User user : users)
-                {
-                    String SQL = "INSERT INTO [User] (id, name) VALUES(" 
-                        + user.getId() + ",'" 
-                        + user.getName().replace("'", "") + "');";
-                    statement.addBatch(SQL);
-                    counter++;
-                    if (counter % 10000 == 0)
-                    {
-                        statement.executeBatch();
-                        System.out.println("Added " + counter + " users.");
-                    }
-                    statement.executeBatch();
-                }
-        } 
-            catch(SQLException ex)
-            {
-                ex.printStackTrace();
-            }
-        }
-        public static void migrateRatings() throws IOException
-            {
-            SQLServerDataSource ds = new SQLServerDataSource();
-            ds.setServerName("10.176.111.31");
-            ds.setDatabaseName("movierecsys");
-            ds.setUser("CS2018A_30");
-            ds.setPassword("CS2018A_30");
-        
-            RatingDAO ratingDAO = new RatingDAO();
-            List<Rating> ratings = ratingDAO.getAllRatings();
-        
-            try(Connection con = ds.getConnection())
-            {
-                int counter = 0;
-                Statement statement = con.createStatement();
-                for (Rating rating : ratings)
-                {
-                    String SQL = "INSERT INTO Rating (movieID, userID, rating) VALUES(" 
-                        + rating.getMovie()+ "," 
-                        + rating.getUser() + ","
-                        + rating.getRating() + ");";
-                    statement.addBatch(SQL);
-                    counter++;
-                    if (counter % 10000 == 0)
-                    {
-                        statement.executeBatch();
-                        System.out.println("Added " + counter + " ratings.");
-                    }
-                }
-                statement.executeBatch();
-                System.out.println("Added " + counter + " ratings");
-        } 
-            catch(SQLException ex)
-            {
-                ex.printStackTrace();
-            }
-        }
+    
+    
 }
-

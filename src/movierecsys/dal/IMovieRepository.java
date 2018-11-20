@@ -35,6 +35,7 @@ public interface IMovieRepository
      */
     void deleteMovie(Movie movie) throws IOException;
 
+
     /**
      * Gets a list of all movies in the persistence storage.
      *
