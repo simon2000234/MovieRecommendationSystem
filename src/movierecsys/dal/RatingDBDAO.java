@@ -37,7 +37,14 @@ public class RatingDBDAO
 
     public void deleteRating(Rating rating) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try( Connection con= db.getConnection())
+       {
+          Statement Statement= con.createStatement();
+          Statement.executeQuery("DELETE FROM Rating WHERE movieID="+rating.getMovie()+" AND userID="+rating.getUser()+" AND rating="+rating.getRating());
+       }catch (SQLException ex)
+       {
+       ex.printStackTrace();
+       }
     }
 
     public List<Rating> getAllRatings() throws IOException
