@@ -74,7 +74,23 @@ public class RatingDBDAO
     
     public List<Rating> getRatings(User user) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Rating> ratings = getAllRatings();
+        List<Rating> userRatings = new ArrayList();
+        for (int i = 0; i < ratings.size(); i++)
+        {
+            if(ratings.get(i).getUser() == user.getId())
+            {
+                userRatings.add(ratings.get(i));
+            }
+        }
+        if(userRatings.isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            return userRatings;
+        }
     }
 
     
