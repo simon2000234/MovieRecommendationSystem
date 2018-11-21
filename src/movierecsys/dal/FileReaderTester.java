@@ -34,6 +34,7 @@ public class FileReaderTester
     public static void main(String[] args) throws IOException, SQLException
     {
         RatingDBDAO rddao = new RatingDBDAO();
+        rddao.createRating(new Rating(1744,1269960,5));
     }
  
 }
