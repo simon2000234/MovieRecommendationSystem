@@ -5,6 +5,7 @@
  */
 package movierecsys.dal;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,12 +23,12 @@ import movierecsys.be.Movie;
  *
  * @author andre
  */
-public class movieDBDAO implements IMovieRepository
+public class MovieDBDAO implements IMovieRepository
 {
 
     private DbConnectionProvider dbCon ;
 
-    public movieDBDAO()
+    public MovieDBDAO()
     {
         dbCon= new DbConnectionProvider();
     }
@@ -38,24 +39,66 @@ public class movieDBDAO implements IMovieRepository
     @Override
     public Movie createMovie(int releaseYear, String title) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int id = getNextAvailableMovieID();
+        try( Connection con= dbCon.getConnection())
+        {
+            Statement Statement= con.createStatement();
+            Statement.executeQuery("INSERT INTO movie (id,year,title)VALUES ("
+            + id + ","
+            + releaseYear + ",'"
+            + title.replace("'", "") + "');");
+            Statement.executeQuery("SELECT * FROM Movie ORDER BY id;");
+        } 
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        return new Movie(id, releaseYear, title);
+        
+    }
+    
+    private int getNextAvailableMovieID() throws IOException
+    {
+        List<Movie> allMovies = getAllMovies();
+        int curNextId = 1; //Id skal mindst være 0
+        for (int i = 0; i < allMovies.size(); i++)
+        {
+            if (curNextId != allMovies.get(i).getId())
+            {
+                return curNextId;
+            }
+            else 
+            {
+                curNextId ++;
+            }
+        }
+        return curNextId;
     }
 
     @Override
     public void deleteMovie(Movie movie) throws FileNotFoundException, IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try( Connection con= dbCon.getConnection())
+        {
+            Statement Statement= con.createStatement();
+            Statement.executeQuery("DELETE FROM Movie WHERE id = " 
+                    + movie.getId() + ";");
+        }   
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public List<Movie> getAllMovies() throws IOException
     {
       
-       List<Movie>movies = new ArrayList<>();
+       List<Movie> movies = new ArrayList<>();
         try( Connection con= dbCon.getConnection())
        {
           Statement Statement= con.createStatement();
-        ResultSet rs= Statement.executeQuery("SELECT * FROM movie");
+          ResultSet rs= Statement.executeQuery("SELECT * FROM movie");
           while(rs.next())
           {
               int id = rs.getInt("id");
@@ -64,29 +107,48 @@ public class movieDBDAO implements IMovieRepository
               System.out.println(""+ id+ " " + title);
               Movie movie = new Movie(id, year,title);
           movies.add(movie);
-          }
-//                   
-//                    
+          }                 
         } catch (SQLException ex)
         {
             ex.printStackTrace();
        }
      
         
-        return null;
+        return movies;
         
     }
 
     @Override
     public Movie getMovie(int id) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Movie> movies = getAllMovies();
+        for (int i = 0; i < movies.size(); i++)
+        {
+            if (id == movies.get(i).getId())
+            {
+                return movies.get(i);
+            }
+        }
+        return null;
     }
 
     @Override
     public void updateMovie(Movie movie) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try( Connection con= dbCon.getConnection())
+        {
+            Statement Statement= con.createStatement();
+            Statement.executeQuery("UPDATE Movie SET year = " 
+                    + movie.getYear() + " , title = '" 
+                    + movie.getTitle() + "' WHERE id=" 
+                    + movie.getId() + ";");
+            
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
     }
     
 }

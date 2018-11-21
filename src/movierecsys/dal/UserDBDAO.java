@@ -21,12 +21,12 @@ import movierecsys.be.User;
  *
  * @author andre
  */
-public class userDBDAO
+public class UserDBDAO
 {
 
     private DbConnectionProvider dbCon;
 
-    public userDBDAO()
+    public UserDBDAO()
     {
         dbCon = new DbConnectionProvider();
     }
