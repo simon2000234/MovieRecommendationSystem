@@ -33,13 +33,13 @@ public class userDBDAO
 
     public User createUser(int id, String name) throws IOException, SQLServerException, SQLException
     {
-       User user = new User(id , name);
+        User user = new User(id, name);
         try (Connection con = dbCon.getConnection())
         {
-            String sql="INSERT INTO User (id,name)VALUES ("+id+","+name+")";
+            String sql = "INSERT INTO [User] (id,name)VALUES (" + id + ",'" + name + "')";
             Statement statement = con.createStatement();
-             statement.executeLargeUpdate(sql);
-           
+            statement.executeLargeUpdate(sql);
+
         } catch (SQLException ex)
         {
             ex.printStackTrace();
@@ -49,7 +49,16 @@ public class userDBDAO
 
     public void deleteUser(User user) throws FileNotFoundException, IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection con = dbCon.getConnection())
+        {
+            String sql = "DELETE FROM [User] WHERE id=" + user.getId();
+            Statement statement = con.createStatement();
+            statement.executeLargeUpdate(sql);
+
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     public List<User> getAllUser() throws IOException
@@ -72,17 +81,39 @@ public class userDBDAO
         {
             ex.printStackTrace();
         }
-        return null;
+        return allUser;
     }
 
-    public Movie getUser(int id) throws IOException
+    public User getUser(int id) throws IOException, SQLServerException, SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+      try (Connection con = dbCon.getConnection())
+        {
+            Statement Statement = con.createStatement();
+          ResultSet rs= Statement.executeQuery("SELECT * FROM [User] WHERE id="+id);
+         while (rs.next())
+            {
+                int uid = rs.getInt("id");
+                String Name = rs.getString("name");
+
+                //System.out.println("" + uid + " " + Name);
+                User user = new User(uid, Name);
+                return user;
+            }
+        } catch(SQLException ex){
+        
+        ex.printStackTrace();
+        }   
+      return null;
     }
 
-    public void updateUser(User user) throws IOException
+    public void updateUser(User user) throws IOException, SQLServerException, SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try (Connection con = dbCon.getConnection())
+        {
+        Statement Statement = con.createStatement();
+         Statement.executeLargeUpdate("UPDATE [User] SET name ='"+ user.getName()+"' WHERE id="+ user.getId());
+        }
     }
 
 }

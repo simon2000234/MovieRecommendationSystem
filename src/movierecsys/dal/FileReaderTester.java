@@ -24,7 +24,7 @@ import movierecsys.be.User;
  */
 public class FileReaderTester
 {
-userDBDAO userdbdao = new userDBDAO();
+
     /**
      * Example method. This is the code I used to create the users.txt files.
      *
@@ -33,9 +33,24 @@ userDBDAO userdbdao = new userDBDAO();
      */
     public static void main(String[] args) throws IOException, SQLException
     {
-    User createUser;
-    createUser = userdbdao.createUser(2649286, "test test");
-        
+    userDBDAO UserDbDAO = new userDBDAO();
+                   // opretter user
+//    User newUser;
+//    String name ="test";
+//    newUser = UserDbDAO.createUser(2649286,name);
+      //  UserDbDAO.deleteUser(new User(2649286,"test"));
+      
+                 // get one user
+//        User user= UserDbDAO.getUser(15737);
+//        System.out.println(user.getId()+" "+ user.getName());
+
+        // update user  
+      String name ="wombat";
+      User user;
+        UserDbDAO.updateUser(user= new User(7,name));
+
+    
+       
     }
 
     public static void mitigateMovie() throws IOException

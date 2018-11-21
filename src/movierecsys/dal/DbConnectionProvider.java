@@ -6,7 +6,7 @@ import java.sql.Connection;
 
 /**
  *
- * @author Andreas
+ * @author 
  */
 public class DbConnectionProvider
 {
@@ -29,7 +29,6 @@ public class DbConnectionProvider
     public Connection getConnection() throws SQLServerException
     {
         return ds.getConnection();
-
     }
 
 }
