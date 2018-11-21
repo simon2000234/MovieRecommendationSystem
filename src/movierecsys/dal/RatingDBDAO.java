@@ -73,7 +73,16 @@ public class RatingDBDAO
     
     public void updateRating(Rating rating) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try( Connection con= db.getConnection())
+       {
+          Statement Statement= con.createStatement();
+          ResultSet rs= Statement.executeQuery("UPDATE Rating SET rating = " 
+                  + rating.getRating() +  " WHERE movieID = " + rating.getMovie() 
+                  + " AND userID = " + rating.getUser() + ";");
+        }   
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
-    
 }
