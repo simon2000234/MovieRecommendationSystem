@@ -24,7 +24,7 @@ import movierecsys.be.User;
  */
 public class FileReaderTester
 {
-    userDBDAO userdbdao = new userDBDAO();
+    UserDBDAO userdbdao = new UserDBDAO();
     /**
      * Example method. This is the code I used to create the users.txt files.
      *
@@ -34,6 +34,8 @@ public class FileReaderTester
 
     public static void main(String[] args) throws IOException, SQLException
     {
+        MovieDBDAO mddao = new MovieDBDAO();
+        mddao.createMovie(2004, "Dab Planet");
         
     }
 
@@ -49,7 +51,7 @@ public class FileReaderTester
         MovieDAO movieDAO = new MovieDAO();
         List<Movie> movies = movieDAO.getAllMovies();
 
-        movieDBDAO movieDBDAO = new movieDBDAO();
+        MovieDBDAO movieDBDAO = new MovieDBDAO();
 
         try (Connection con = ds.getConnection())
         {
@@ -84,7 +86,7 @@ public class FileReaderTester
         UserDAO userDAO = new UserDAO();
         List<User> users = userDAO.getAllUsers();
 
-        userDBDAO userDBDAO = new userDBDAO();
+        UserDBDAO userDBDAO = new UserDBDAO();
 
         try (Connection con = ds.getConnection())
         {
