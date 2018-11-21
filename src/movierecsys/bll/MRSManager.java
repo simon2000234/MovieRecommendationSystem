@@ -79,13 +79,13 @@ public class MRSManager implements MRSOwsLogicFacade {
     @Override
     public void rateMovie(Movie movie, User user, int rating) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        rddao.createRating(new Rating(movie.getId(), user.getId(), rating));
     }
 
     @Override
     public User createNewUser(String name) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return uddao.createUser(name);
     }
 
     @Override

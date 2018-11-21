@@ -31,8 +31,9 @@ public class UserDBDAO
         dbCon = new DbConnectionProvider();
     }
 
-    public User createUser(int id, String name) throws IOException, SQLServerException, SQLException
+    public User createUser(String name) throws IOException
     {
+        int id = getNextAvailableUserID();
         User user = new User(id, name);
         try (Connection con = dbCon.getConnection())
         {
@@ -45,6 +46,23 @@ public class UserDBDAO
             ex.printStackTrace();
         }
         return user;
+    }
+    private int getNextAvailableUserID() throws IOException
+    {
+        List<User> allUsers = getAllUser();
+        int curNextId = 1; //Id skal mindst være 0
+        for (int i = 0; i < allUsers.size(); i++)
+        {
+            if (curNextId != allUsers.get(i).getId())
+            {
+                return curNextId;
+            }
+            else 
+            {
+                curNextId ++;
+            }
+        }
+        return curNextId;
     }
 
     public void deleteUser(User user) throws FileNotFoundException, IOException
