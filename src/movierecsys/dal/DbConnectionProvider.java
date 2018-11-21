@@ -12,9 +12,9 @@ public class DbConnectionProvider
 {
 
     private static final String SetServerName = "10.176.111.31";
-    private static final String SetDatabaseName = "movierecsys";
-    private static final String SetUser = "CS2018A_30";
-    private static final String SetPassword = "CS2018A_30";
+    private static final String SetDatabaseName = "andr_mrs";
+    private static final String SetUser = "CS2018A_3";
+    private static final String SetPassword = "CS2018A_3";
     private final SQLServerDataSource ds;
 
     public DbConnectionProvider()

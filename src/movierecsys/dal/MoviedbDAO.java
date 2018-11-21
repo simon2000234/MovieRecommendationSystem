@@ -23,7 +23,7 @@ import movierecsys.be.Movie;
  *
  * @author andre
  */
-public class MoviedbDAO 
+public class MoviedbDAO
 {
 
     private DbConnectionProvider dbCon ;
