@@ -23,12 +23,12 @@ import movierecsys.be.Movie;
  *
  * @author andre
  */
-public class MovieDBDAO implements IMovieRepository
+public class MoviedbDAO 
 {
 
     private DbConnectionProvider dbCon ;
 
-    public MovieDBDAO()
+    public MoviedbDAO()
     {
         dbCon= new DbConnectionProvider();
     }
