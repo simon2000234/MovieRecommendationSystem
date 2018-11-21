@@ -12,7 +12,7 @@ import movierecsys.be.Movie;
 
 /**
  *
- * @author andre
+ * @author Melchertsen
  */
 public interface IMovieRepository
 {
@@ -33,7 +33,8 @@ public interface IMovieRepository
      * @param movie The movie to delete.
      * @throws java.io.FileNotFoundException
      */
-    void deleteMovie(Movie movie) throws FileNotFoundException, IOException;
+    void deleteMovie(Movie movie) throws IOException;
+
 
     /**
      * Gets a list of all movies in the persistence storage.

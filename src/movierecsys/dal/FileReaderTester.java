@@ -25,14 +25,20 @@ import movierecsys.be.User;
 public class FileReaderTester
 {
 
+
+
+    userDBDAO userdbdao = new userDBDAO();
+
     /**
      * Example method. This is the code I used to create the users.txt files.
      *
      * @param args
      * @throws IOException
      */
+
     public static void main(String[] args) throws IOException, SQLException
     {
+
     userDBDAO UserDbDAO = new userDBDAO();
                    // opretter user
 //    User newUser;
@@ -50,7 +56,7 @@ public class FileReaderTester
         UserDbDAO.updateUser(user= new User(7,name));
 
     
-       
+
     }
 
     public static void mitigateMovie() throws IOException
@@ -105,7 +111,6 @@ public class FileReaderTester
         try (Connection con = ds.getConnection())
         {
             Statement Statement = con.createStatement();
-
             for (User user : users)
             {
                 String sql = "INSERT INTO [User] (id,name)VALUES ("

@@ -31,7 +31,7 @@ public class MovieRecController implements Initializable
     @FXML
     private ListView<?> lstMovies;
 
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
