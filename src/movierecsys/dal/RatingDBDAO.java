@@ -23,55 +23,63 @@ import movierecsys.be.User;
  */
 public class RatingDBDAO
 {
+
     DbConnectionProvider db = new DbConnectionProvider();
+
     public RatingDBDAO()
     {
-        db= new DbConnectionProvider();
+        db = new DbConnectionProvider();
     }
-    
-    
+
     public void createRating(Rating rating) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try (Connection con = db.getConnection())
+        {
+            String sql = "INSERT INTO [Rating] (movieID,userID,rating)VALUES ('" + rating.getMovie() + "'," + rating.getUser() + "," + rating.getRating()+ ")";
+            Statement statement = con.createStatement();
+            statement.executeLargeUpdate(sql);
+
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     public void deleteRating(Rating rating) throws IOException
     {
-        try( Connection con= db.getConnection())
-       {
-          Statement Statement= con.createStatement();
-          Statement.executeQuery("DELETE FROM Rating WHERE movieID="+rating.getMovie()+" AND userID="+rating.getUser()+" AND rating="+rating.getRating());
-       }catch (SQLException ex)
-       {
-       ex.printStackTrace();
-       }
+        try (Connection con = db.getConnection())
+        {
+            Statement Statement = con.createStatement();
+            Statement.executeQuery("DELETE FROM Rating WHERE movieID=" + rating.getMovie() + " AND userID=" + rating.getUser() + " AND rating=" + rating.getRating());
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     public List<Rating> getAllRatings() throws IOException
     {
         List<Rating> ratings = new ArrayList();
-        try( Connection con= db.getConnection())
-       {
-          Statement Statement= con.createStatement();
-          ResultSet rs= Statement.executeQuery("SELECT * FROM Rating");
-          while (rs.next())
-          {
-              int movieID = rs.getInt("movieID");
-              int userID = rs.getInt("userID");
-              int rating = rs.getInt("rating");
-              Rating therating = new Rating(movieID, userID, rating);
-              ratings.add(therating);
-          }
-        }   
-        catch (SQLException ex)
+        try (Connection con = db.getConnection())
+        {
+            Statement Statement = con.createStatement();
+            ResultSet rs = Statement.executeQuery("SELECT * FROM Rating");
+            while (rs.next())
+            {
+                int movieID = rs.getInt("movieID");
+                int userID = rs.getInt("userID");
+                int rating = rs.getInt("rating");
+                Rating therating = new Rating(movieID, userID, rating);
+                ratings.add(therating);
+            }
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
         return ratings;
     }
 
-    
-    
     public List<Rating> getRatings(User user) throws IOException
     {
         List<Rating> ratings = getAllRatings();
@@ -93,17 +101,15 @@ public class RatingDBDAO
         }
     }
 
-    
     public void updateRating(Rating rating) throws IOException
     {
-        try( Connection con= db.getConnection())
-       {
-          Statement Statement= con.createStatement();
-          ResultSet rs= Statement.executeQuery("UPDATE Rating SET rating = " 
-                  + rating.getRating() +  " WHERE movieID = " + rating.getMovie() 
-                  + " AND userID = " + rating.getUser() + ";");
-        }   
-        catch (SQLException ex)
+        try (Connection con = db.getConnection())
+        {
+            Statement Statement = con.createStatement();
+            ResultSet rs = Statement.executeQuery("UPDATE Rating SET rating = "
+                    + rating.getRating() + " WHERE movieID = " + rating.getMovie()
+                    + " AND userID = " + rating.getUser() + ";");
+        } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
