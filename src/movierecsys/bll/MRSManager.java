@@ -91,7 +91,15 @@ public class MRSManager implements MRSOwsLogicFacade {
     @Override
     public User getUserById(int id) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<User> users = uddao.getAllUser();
+        for (User user : users)
+        {
+            if (user.getId() == id)
+            {
+                return user;
+            }
+        }
+        return null;
     }
 
     @Override
