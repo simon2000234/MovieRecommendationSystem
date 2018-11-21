@@ -36,7 +36,6 @@ public class MovieDBDAO implements IMovieRepository
     
     
     
-    @Override
     public Movie createMovie(int releaseYear, String title) throws IOException
     {
         int id = getNextAvailableMovieID();
@@ -75,7 +74,6 @@ public class MovieDBDAO implements IMovieRepository
         return curNextId;
     }
 
-    @Override
     public void deleteMovie(Movie movie) throws FileNotFoundException, IOException
     {
         try( Connection con= dbCon.getConnection())
@@ -90,7 +88,6 @@ public class MovieDBDAO implements IMovieRepository
         }
     }
 
-    @Override
     public List<Movie> getAllMovies() throws IOException
     {
       
@@ -118,7 +115,6 @@ public class MovieDBDAO implements IMovieRepository
         
     }
 
-    @Override
     public Movie getMovie(int id) throws IOException
     {
         List<Movie> movies = getAllMovies();
@@ -132,7 +128,6 @@ public class MovieDBDAO implements IMovieRepository
         return null;
     }
 
-    @Override
     public void updateMovie(Movie movie) throws IOException
     {
         try( Connection con= dbCon.getConnection())

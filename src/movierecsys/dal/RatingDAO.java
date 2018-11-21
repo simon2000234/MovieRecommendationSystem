@@ -26,13 +26,14 @@ import movierecsys.be.User;
  *
  * @author pgn
  */
-public class RatingDAO
+public class RatingDAO implements IRatingCRUD
 {
     
     /**
      * Persists the given rating.
      * @param rating the rating to persist.
      */
+    @Override
     public void createRating(Rating rating) throws IOException
     {
         PrintWriter writer = new PrintWriter("data/temp_ratings.txt");
@@ -55,6 +56,7 @@ public class RatingDAO
      * Updates the rating to reflect the given object.
      * @param rating The updated rating to persist.
      */
+    @Override
     public void updateRating(Rating rating) throws IOException
     {
         List<Rating> newRatingList = getAllRatings();
@@ -82,6 +84,7 @@ public class RatingDAO
      * Removes the given rating.
      * @param rating 
      */
+    @Override
     public void deleteRating(Rating rating) throws IOException
     {
         PrintWriter writer = new PrintWriter("data/temp_ratings.txt");
@@ -109,6 +112,7 @@ public class RatingDAO
      * Gets all ratings from all users.
      * @return List of all ratings.
      */
+    @Override
     public List<Rating> getAllRatings() throws IOException
     {
         List<Rating> allRatings = new ArrayList<>();
@@ -152,6 +156,7 @@ public class RatingDAO
      * @param user The user 
      * @return The list of ratings.
      */
+    @Override
     public List<Rating> getRatings(User user) throws IOException
     {
         ArrayList<Rating> userRatings = new ArrayList<>();
