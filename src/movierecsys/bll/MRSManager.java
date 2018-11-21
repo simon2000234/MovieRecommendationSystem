@@ -61,13 +61,13 @@ public class MRSManager implements MRSOwsLogicFacade {
     @Override
     public Movie createMovie(int year, String title) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return mddao.createMovie(year, title);
     }
 
     @Override
     public void updateMovie(Movie movie) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        mddao.updateMovie(movie);
     }
 
     @Override
