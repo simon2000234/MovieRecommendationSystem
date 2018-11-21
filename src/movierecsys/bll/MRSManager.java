@@ -105,7 +105,8 @@ public class MRSManager implements MRSOwsLogicFacade {
     @Override
     public List<User> getAllUsers() throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+        return uddao.getAllUser();
     }
 
 }
