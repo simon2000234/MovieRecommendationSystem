@@ -6,10 +6,14 @@
 
 package movierecsys.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 import movierecsys.be.Movie;
 import movierecsys.be.Rating;
 import movierecsys.be.User;
+import movierecsys.dal.MoviedbDAO;
+import movierecsys.dal.RatingDBDAO;
+import movierecsys.dal.UserDBDAO;
 
 /**
  *
@@ -17,6 +21,9 @@ import movierecsys.be.User;
  */
 public class MRSManager implements MRSOwsLogicFacade {
 
+    MoviedbDAO mddao = new MoviedbDAO();
+    UserDBDAO uddao = new UserDBDAO();
+    RatingDBDAO rddao = new RatingDBDAO();
     @Override
     public List<Rating> getRecommendedMovies(User user)
     {
@@ -38,7 +45,16 @@ public class MRSManager implements MRSOwsLogicFacade {
     @Override
     public List<Movie> searchMovies(String query)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Movie> allMovies = mddao.getAllMovies();
+        List<Movie> movieMatch = new ArrayList<>();
+        for (Movie allMovy : allMovies)
+        {
+            if(query.equals(allMovy.getTitle()))
+            {
+                movieMatch.add(allMovy);
+            }
+        }
+        return movieMatch;
     }
 
     @Override
