@@ -5,6 +5,7 @@
  */
 package movierecsys.bll;
 
+import java.io.IOException;
 import java.util.List;
 import movierecsys.be.Movie;
 import movierecsys.be.Rating;
@@ -22,27 +23,27 @@ public interface MRSOwsLogicFacade
      * @param user The current user
      * @return Users ratings.
      */
-    List<Rating> getRecommendedMovies(User user);
+    List<Rating> getRecommendedMovies(User user) throws IOException;
 
     /**
      * Gets a list of all movies sorted by their rating.
      * @return A list of movies.
      */
-    List<Movie> getAllTimeTopRatedMovies();
+    List<Movie> getAllTimeTopRatedMovies() throws IOException;
 
     /**
      * Gets a list of movies recommended for the given user.
      * @param user The user we are recommending movies to.
      * @return List of recommended movies sorted in descending order.
      */
-    List<Movie> getMovieReccomendations(User user);
+    List<Movie> getMovieReccomendations(User user) throws IOException;
 
     /**
      * Searches for all mmovies that matches the given query somehow.
      * @param query The search query
      * @return A list of movies that matches the search query.
      */
-    List<Movie> searchMovies(String query);
+    List<Movie> searchMovies(String query) throws IOException;
 
     /**
      * Create and add a new movie to the systems storage.
@@ -50,19 +51,19 @@ public interface MRSOwsLogicFacade
      * @param title Title of the movie
      * @return The newly created movie
      */
-    Movie createMovie(int year, String title);
+    Movie createMovie(int year, String title) throws IOException;
 
     /**
      * Updated the saved version of the movie to the values in the given one.
      * @param movie The updated movie.
      */
-    void updateMovie(Movie movie);
+    void updateMovie(Movie movie) throws IOException;
 
     /**
      * Deletes the given movie from storage.
      * @param movie The movie to delete.
      */
-    void deleteMovie(Movie movie);
+    void deleteMovie(Movie movie) throws IOException;
 
     /**
      * Creates a new Rating in the system.
@@ -70,26 +71,26 @@ public interface MRSOwsLogicFacade
      * @param user The user whom rates the movie.
      * @param rating The rating score of the movie
      */
-    void rateMovie(Movie movie, User user, int rating);
+    void rateMovie(Movie movie, User user, int rating) throws IOException;
 
     /**
      * Create a new user in the system.
      * @param name Name of the new user.
      * @return The new user object.
      */
-    User createNewUser(String name);
+    User createNewUser(String name) throws IOException;
 
     /**
      * Searches for the user with the given ID.
      * @param id
      * @return 
      */
-    User getUserById(int id);
+    User getUserById(int id) throws IOException;
     
     /**
      * Gets a list of all users in the system.
      * @return 
      */
-    List<User> getAllUsers();
+    List<User> getAllUsers() throws IOException;
 
 }

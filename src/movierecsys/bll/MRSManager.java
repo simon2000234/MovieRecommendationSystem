@@ -6,6 +6,7 @@
 
 package movierecsys.bll;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import movierecsys.be.Movie;
@@ -25,25 +26,25 @@ public class MRSManager implements MRSOwsLogicFacade {
     UserDBDAO uddao = new UserDBDAO();
     RatingDBDAO rddao = new RatingDBDAO();
     @Override
-    public List<Rating> getRecommendedMovies(User user)
+    public List<Rating> getRecommendedMovies(User user) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Movie> getAllTimeTopRatedMovies()
+    public List<Movie> getAllTimeTopRatedMovies() throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Movie> getMovieReccomendations(User user)
+    public List<Movie> getMovieReccomendations(User user) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Movie> searchMovies(String query)
+    public List<Movie> searchMovies(String query) throws IOException
     {
         List<Movie> allMovies = mddao.getAllMovies();
         List<Movie> movieMatch = new ArrayList<>();
@@ -58,43 +59,43 @@ public class MRSManager implements MRSOwsLogicFacade {
     }
 
     @Override
-    public Movie createMovie(int year, String title)
+    public Movie createMovie(int year, String title) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void updateMovie(Movie movie)
+    public void updateMovie(Movie movie) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void deleteMovie(Movie movie)
+    public void deleteMovie(Movie movie) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void rateMovie(Movie movie, User user, int rating)
+    public void rateMovie(Movie movie, User user, int rating) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public User createNewUser(String name)
+    public User createNewUser(String name) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public User getUserById(int id)
+    public User getUserById(int id) throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<User> getAllUsers()
+    public List<User> getAllUsers() throws IOException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
