@@ -101,7 +101,6 @@ public class MoviedbDAO
               int id = rs.getInt("id");
               int year = rs.getInt("year");
               String title = rs.getString("title");
-              System.out.println(""+ id+ " " + title);
               Movie movie = new Movie(id, year,title);
           movies.add(movie);
           }                 

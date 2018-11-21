@@ -24,11 +24,6 @@ import movierecsys.be.User;
  */
 public class FileReaderTester
 {
-
-
-
-
-
     /**
      * Example method. This is the code I used to create the users.txt files.
      *
@@ -38,7 +33,12 @@ public class FileReaderTester
 
     public static void main(String[] args) throws IOException, SQLException
     {
-        
+        RatingDBDAO rddao = new RatingDBDAO();
+        List<Rating> ratings = rddao.getAllRatings();
+        for (Rating rating : ratings)
+        {
+            System.out.println(rating);
+        }
     }
  
 }
