@@ -5,12 +5,21 @@
  */
 package movierecsys.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import movierecsys.be.Movie;
+import movierecsys.dal.MoviedbDAO;
+import movierecsys.gui.view.Modle;
 
 /**
  *
@@ -18,6 +27,8 @@ import javafx.scene.control.TextField;
  */
 public class MovieRecController implements Initializable
 {
+    Modle mod = new Modle();
+    MoviedbDAO mddao = new MoviedbDAO();
 
     /**
      * The TextField containing the URL of the targeted website.
@@ -29,13 +40,36 @@ public class MovieRecController implements Initializable
      * The TextField containing the query word.
      */
     @FXML
-    private ListView<?> lstMovies;
+    private ListView<Movie> lstMovies;
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-       
+        try
+        {
+            ObservableList<Movie> alleMovies =  FXCollections.observableArrayList(mddao.getAllMovies());
+            lstMovies.setItems(alleMovies);
+        } 
+        catch (IOException ex)
+        {
+            Logger.getLogger(MovieRecController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void handelMovieSeach(ActionEvent event)
+    {
+        ObservableList<Movie> valgteMovies;
+        try
+        {
+            valgteMovies = FXCollections.observableArrayList(mod.getMrs().searchMovies(txtMovieSearcjh.getText()));
+            lstMovies.setItems(valgteMovies);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MovieRecController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
